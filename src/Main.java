@@ -100,14 +100,14 @@ public class Main {
         try(BufferedWriter writer = new BufferedWriter(new FileWriter(nomeArquivo, true))){
             writer.write(metodo + ";");
             writer.write(tamanho + ";");
-            writer.write("[");
+
             for (int i = 0; i < numeros.length; i++) {
                 writer.write(String.valueOf(numeros[i]));
                 if (i != numeros.length - 1) {
                     writer.write(",");
                 }
             }
-            writer.write("]");
+
             writer.newLine();
         } catch (IOException e) {
             System.out.println("Erro ao colocar os dados no arquivo " + nomeArquivo);

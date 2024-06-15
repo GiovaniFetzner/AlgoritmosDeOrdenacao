@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.Random;
 
 public class Main {
 
@@ -15,7 +16,9 @@ public class Main {
             int[] ordenadoDecrescente = criarVetorOrdenadoDecrescente(128);
             System.out.println("\ncriarVetorAleatorioSemRepeticao");
             int[] aleatorioSemRepeticao = criarVetorAleatorioSemRepeticao(15);
-            System.out.println(aleatorioSemRepeticao);
+            System.out.println("\ncriarVetorAleatorioSemRepeticao");
+            int [] aleatorioComRepeticao = criarVetoresOrdemAlatoriaComRepeticao(15);
+            imprimirVetor(aleatorioComRepeticao);
         }else {
             criandoArquivo("Arrays.csv");
         }
@@ -57,6 +60,15 @@ public class Main {
         return vetorOrdenado;
     }
 
+    private static int[] criarVetoresOrdemAlatoriaComRepeticao (int tamanho){
+        int[] vetor = new int[tamanho];
+        Random random = new Random();
+
+        for (int i = 0; i < tamanho; i++) {
+            vetor[i] = random.nextInt(tamanho);
+        }
+        return vetor;
+    }
     public static void criandoArquivo(String nomeArquivo) {
         File novoArquivoCSV = new File(nomeArquivo);
         try {
@@ -66,6 +78,13 @@ public class Main {
             e.printStackTrace();
         }
         System.out.println("\nArquivo criado!");
+    }
+
+    private static void imprimirVetor(int[] vetor) {
+        for (int num : vetor) {
+            System.out.print(num + " ");
+        }
+        System.out.println();
     }
 
 }

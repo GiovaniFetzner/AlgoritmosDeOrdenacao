@@ -15,7 +15,10 @@ public class Main {
             int[] ordenadoDecrescente = criarVetorOrdenadoDecrescente(128);
             System.out.println("\ncriarVetorAleatorioSemRepeticao");
             int[] aleatorioSemRepeticao = criarVetorAleatorioSemRepeticao(15);
-            System.out.println(aleatorioSemRepeticao);
+            for (int numero: aleatorioSemRepeticao) {
+                System.out.print(numero + " ");
+            }
+           // System.out.println(aleatorioSemRepeticao);
         }else {
             criandoArquivo("Arrays.csv");
         }
@@ -25,9 +28,11 @@ public class Main {
     private static int[] criarVetorAleatorioSemRepeticao(int tamanho) {
         HashSet<Integer> numeros = new HashSet<>();
         int[] vetor = new int[tamanho];
+      //
 
-        while(numeros.size() < tamanho) {
-            numeros.add((int)(Math.random() * tamanho));
+        while (numeros.size() < tamanho) {
+            int numeroAleatorio = (int) (Math.random() * (tamanho * 10));
+            numeros.add(numeroAleatorio);
         }
 
         int index = 0;

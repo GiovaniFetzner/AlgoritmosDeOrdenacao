@@ -1,5 +1,9 @@
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Random;
 
@@ -9,16 +13,18 @@ public class Main {
 
         File arquivoCSV = new File("Arrays.csv");
 
+        int array128 = 128;
+
         if(arquivoCSV.exists()) {
-            System.out.println("criarVetorOrdenadoCrescente");
-            int[] ordenadoCrescente = criarVetorOrdenadoCrescente(128);
-            System.out.println("\ncriarVetorOrdenadoDecrescente");
-            int[] ordenadoDecrescente = criarVetorOrdenadoDecrescente(128);
-            System.out.println("\ncriarVetorAleatorioSemRepeticao");
-            int[] aleatorioSemRepeticao = criarVetorAleatorioSemRepeticao(15);
-            System.out.println("\ncriarVetorAleatorioSemRepeticao");
-            int [] aleatorioComRepeticao = criarVetoresOrdemAlatoriaComRepeticao(15);
-            imprimirVetor(aleatorioComRepeticao);
+
+            int[] ordenadoCrescente = criarVetorOrdenadoCrescente(array128);
+            int[] ordenadoDecrescente = criarVetorOrdenadoDecrescente(array128);
+            int[] aleatorioSemRepeticao = criarVetorAleatorioSemRepeticao(array128);
+            int [] aleatorioComRepeticao = criarVetoresOrdemAlatoriaComRepeticao(array128);
+
+            imprimirVetor(aleatorioSemRepeticao);
+
+            //cabecalhoCSV("Arrays.csv");
         }else {
             criandoArquivo("Arrays.csv");
         }
@@ -26,20 +32,25 @@ public class Main {
     }
 
     private static int[] criarVetorAleatorioSemRepeticao(int tamanho) {
-        HashSet<Integer> numeros = new HashSet<>();
+        ArrayList<Integer> numeros = new ArrayList<>();
         int[] vetor = new int[tamanho];
 
-        while(numeros.size() < tamanho) {
-            numeros.add((int)(Math.random() * tamanho));
+        // Adiciona todos os números de 1 até tamanho na lista
+        for (int i = 1; i <= tamanho; i++) {
+            numeros.add(i);
         }
 
-        int index = 0;
-        for (int numero : numeros) {
-            vetor[index++] = numero;
+        // Embaralha a lista para garantir ordem aleatória
+        Collections.shuffle(numeros);
+
+        // Copia os elementos embaralhados para o vetor
+        for (int i = 0; i < tamanho; i++) {
+            vetor[i] = numeros.get(i);
         }
 
         return vetor;
     }
+
 
     private static int[] criarVetorOrdenadoCrescente(int tamanho) {
         int[] vetorOrdenado = new int[tamanho];
@@ -85,6 +96,35 @@ public class Main {
             System.out.print(num + " ");
         }
         System.out.println();
+    }
+
+    private static void escreverCSV (String nomeArquivo,String metodo,int tamanho, int[] numeros){
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter(nomeArquivo, true))){
+            writer.write(metodo + ";");
+            writer.write(tamanho + ";");
+            writer.write("[");
+            for (int i = 0; i < numeros.length; i++) {
+                writer.write(String.valueOf(numeros[i]));
+                if (i != numeros.length - 1) {
+                    writer.write(",");
+                }
+            }
+            writer.write("]");
+            writer.newLine();
+        } catch (IOException e) {
+            System.out.println("Erro ao colocar os dados no arquivo " + nomeArquivo);
+            e.printStackTrace();
+        }
+
+    }
+
+    private static void cabecalhoCSV (String nomeArquivo){
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter(nomeArquivo, true))){
+            writer.write("método;tamanho;números\n");
+        } catch (IOException e) {
+            System.out.println("Erro ao colocar o cabeçalho no arquivo " + nomeArquivo);
+            e.printStackTrace();
+        }
     }
 
 }

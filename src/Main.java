@@ -8,19 +8,21 @@ public class Main {
         File arquivoCSV = new File("Arrays.csv");
 
         int array128 = 128;
+        int array256 = 256;
+
 
         if(arquivoCSV.exists()) {
 
-            int[] ordenadoCrescente = criarVetorOrdenadoCrescente(array128);
-            int[] ordenadoDecrescente = criarVetorOrdenadoDecrescente(array128);
-            int[] aleatorioSemRepeticao = criarVetorAleatorioSemRepeticao(array128);
-            int[] aleatorioComRepeticao = criarVetoresOrdemAlatoriaComRepeticao(array128);
+            int[] ordenadoCrescente128 = criarVetorOrdenadoCrescente(array128);
+            int[] ordenadoDecrescente128 = criarVetorOrdenadoDecrescente(array128);
+            int[] aleatorioSemRepeticao128 = criarVetorAleatorioSemRepeticao(array128);
+            int [] aleatorioComRepeticao128 = criarVetoresOrdemAlatoriaComRepeticao(array128);
 
-            imprimirVetor(aleatorioSemRepeticao);
+            //imprimirVetor(aleatorioSemRepeticao);
 
-            getVetor(arquivoCSV);
+            cabecalhoCSV("Arrays.csv");
+            escreverCSV("Arrays.csv","ordenadoCrescente",array128,ordenadoCrescente128);
 
-            //cabecalhoCSV("Arrays.csv");
         }else {
             criandoArquivo("Arrays.csv");
         }
@@ -94,7 +96,7 @@ public class Main {
         System.out.println();
     }
 
-    private static void escreverCSV (String nomeArquivo, String metodo, int tamanho, int[] numeros){
+    private static void escreverCSV (String nomeArquivo,String metodo,int tamanho, int[] numeros){
         try(BufferedWriter writer = new BufferedWriter(new FileWriter(nomeArquivo, true))){
             writer.write(metodo + ";");
             writer.write(tamanho + ";");
@@ -116,7 +118,7 @@ public class Main {
 
     private static void cabecalhoCSV (String nomeArquivo){
         try(BufferedWriter writer = new BufferedWriter(new FileWriter(nomeArquivo, true))){
-            writer.write("método;tamanho;números\n");
+            writer.write("metodo;tamanho;numeros\n");
         } catch (IOException e) {
             System.out.println("Erro ao colocar o cabeçalho no arquivo " + nomeArquivo);
             e.printStackTrace();

@@ -1,11 +1,5 @@
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Random;
+import java.io.*;
+import java.util.*;
 
 public class Main {
 
@@ -20,9 +14,11 @@ public class Main {
             int[] ordenadoCrescente = criarVetorOrdenadoCrescente(array128);
             int[] ordenadoDecrescente = criarVetorOrdenadoDecrescente(array128);
             int[] aleatorioSemRepeticao = criarVetorAleatorioSemRepeticao(array128);
-            int [] aleatorioComRepeticao = criarVetoresOrdemAlatoriaComRepeticao(array128);
+            int[] aleatorioComRepeticao = criarVetoresOrdemAlatoriaComRepeticao(array128);
 
             imprimirVetor(aleatorioSemRepeticao);
+
+            getVetor(arquivoCSV);
 
             //cabecalhoCSV("Arrays.csv");
         }else {
@@ -98,7 +94,7 @@ public class Main {
         System.out.println();
     }
 
-    private static void escreverCSV (String nomeArquivo,String metodo,int tamanho, int[] numeros){
+    private static void escreverCSV (String nomeArquivo, String metodo, int tamanho, int[] numeros){
         try(BufferedWriter writer = new BufferedWriter(new FileWriter(nomeArquivo, true))){
             writer.write(metodo + ";");
             writer.write(tamanho + ";");
@@ -126,5 +122,45 @@ public class Main {
             e.printStackTrace();
         }
     }
+
+    private static int[] getVetor(File nomeArquivo){
+        try (BufferedReader reader = new BufferedReader(new FileReader(nomeArquivo))) {
+            String linha = reader.readLine();
+            String[] cabecalhos = linha.split(";");
+
+            while((linha = reader.readLine()) != null){
+                String[] colunas = linha.split(";");
+
+                String metodo = colunas[0];
+                String tamanho = colunas[1];
+                String numeros = colunas[2];
+
+                dataFormat(numeros);
+            }
+
+            int[] vetor;
+
+            reader.close();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return null;
+
+    }
+
+    private static int[] dataFormat(String numeros) {
+        String[] numerosStringArray = numeros.split(",");
+
+        int[] vetor = new int[numerosStringArray.length];
+        for (int i = 0; i < numerosStringArray.length; i++) {
+            vetor[i] = Integer.parseInt(numerosStringArray[i]);
+        }
+
+        return vetor;
+    }
+
 
 }

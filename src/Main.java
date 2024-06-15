@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Random;
+import java.util.TreeSet;
 
 public class Main {
 
@@ -10,15 +11,22 @@ public class Main {
         File arquivoCSV = new File("Arrays.csv");
 
         if(arquivoCSV.exists()) {
+            int[] ordenadoCrescente = criarVetorOrdenadoCrescente(15);
             System.out.println("criarVetorOrdenadoCrescente");
-            int[] ordenadoCrescente = criarVetorOrdenadoCrescente(128);
+            imprimirVetor(ordenadoCrescente);
+
             System.out.println("\ncriarVetorOrdenadoDecrescente");
-            int[] ordenadoDecrescente = criarVetorOrdenadoDecrescente(128);
-            System.out.println("\ncriarVetorAleatorioSemRepeticao");
+            int[] ordenadoDecrescente = criarVetorOrdenadoDecrescente(15);
+            imprimirVetor(ordenadoDecrescente);
+
             int[] aleatorioSemRepeticao = criarVetorAleatorioSemRepeticao(15);
             System.out.println("\ncriarVetorAleatorioSemRepeticao");
+            imprimirVetor(aleatorioSemRepeticao);
+
             int [] aleatorioComRepeticao = criarVetoresOrdemAlatoriaComRepeticao(15);
+            System.out.println("\naleatorioComRepeticao");
             imprimirVetor(aleatorioComRepeticao);
+
         }else {
             criandoArquivo("Arrays.csv");
         }
@@ -29,8 +37,10 @@ public class Main {
         HashSet<Integer> numeros = new HashSet<>();
         int[] vetor = new int[tamanho];
 
-        while(numeros.size() < tamanho) {
-            numeros.add((int)(Math.random() * tamanho));
+        while (numeros.size() < tamanho) {
+            int numeroAleatorio = (int) ((Math.random() * tamanho * 10) + 1);
+            //int numeroAleatorio = (int) ((Math.random() * tamanho) + 1);
+            numeros.add(numeroAleatorio);
         }
 
         int index = 0;
@@ -44,7 +54,7 @@ public class Main {
     private static int[] criarVetorOrdenadoCrescente(int tamanho) {
         int[] vetorOrdenado = new int[tamanho];
         for (int i = 0; i < tamanho; i++) {
-            vetorOrdenado[i] = i;
+            vetorOrdenado[i] = (i+1);
         }
         return vetorOrdenado;
     }

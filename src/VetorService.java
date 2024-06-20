@@ -3,25 +3,6 @@ import java.util.Collections;
 import java.util.Random;
 
 public class VetorService {
-
-    public static int[] criarVetorAleatorioSemRepeticao(int tamanho) {
-        ArrayList<Integer> numeros = new ArrayList<>();
-        int[] vetor = new int[tamanho];
-
-        for (int i = 1; i <= tamanho; i++) {
-            numeros.add(i);
-        }
-
-        Collections.shuffle(numeros);
-
-        for (int i = 0; i < tamanho; i++) {
-            vetor[i] = numeros.get(i);
-        }
-
-        return vetor;
-    }
-
-
     public static int[] criarVetorOrdenadoCrescente(int tamanho) {
         int[] vetorOrdenado = new int[tamanho];
         for (int i = 0; i < tamanho; i++) {
@@ -41,7 +22,7 @@ public class VetorService {
         return vetorOrdenado;
     }
 
-    public static int[] criarVetoresOrdemAlatoriaComRepeticao (int tamanho){
+    public static int[] criarVetoresOrdemAlatoriaComRepeticao(int tamanho) {
         int[] vetor = new int[tamanho];
         Random random = new Random();
 
@@ -50,6 +31,24 @@ public class VetorService {
         }
         return vetor;
     }
+
+    public static int[] criarVetorAleatorioSemRepeticao(int tamanho) {
+        ArrayList<Integer> numeros = new ArrayList<>();
+        int[] vetor = new int[tamanho];
+
+        for (int i = 1; i <= tamanho; i++) {
+            numeros.add(i);
+        }
+
+        Collections.shuffle(numeros);
+
+        for (int i = 0; i < tamanho; i++) {
+            vetor[i] = numeros.get(i);
+        }
+
+        return vetor;
+    }
+
 
     public static void imprimirVetor(int[] vetor) {
         for (int num : vetor) {

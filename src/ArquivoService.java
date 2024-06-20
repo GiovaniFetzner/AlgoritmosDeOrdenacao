@@ -6,6 +6,7 @@ public class ArquivoService {
         File novoArquivoCSV = new File(nomeArquivo);
         try {
             novoArquivoCSV.createNewFile();
+            cabecalhoCSV(novoArquivoCSV);
         } catch (IOException e) {
             System.out.println("\nFalha ao criar arquivo!");
             e.printStackTrace();
@@ -24,10 +25,10 @@ public class ArquivoService {
         return vetor;
     }
 
-    public static void escreverCSV (String nomeArquivo,String metodo,int tamanho, int[] numeros){
-        try(BufferedWriter writer = new BufferedWriter(new FileWriter(nomeArquivo, true))){
+    public static void escreverCSV (File arquivo,String metodo, int[] numeros){
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter(arquivo, true))){
             writer.write(metodo + ";");
-            writer.write(tamanho + ";");
+            writer.write(numeros.length + ";");
 
             for (int i = 0; i < numeros.length; i++) {
                 writer.write(String.valueOf(numeros[i]));
@@ -38,17 +39,17 @@ public class ArquivoService {
 
             writer.newLine();
         } catch (IOException e) {
-            System.out.println("Erro ao colocar os dados no arquivo " + nomeArquivo);
+            System.out.println("Erro ao colocar os dados no arquivo " + arquivo.getName());
             e.printStackTrace();
         }
 
     }
 
-    private static void cabecalhoCSV (String nomeArquivo){
-        try(BufferedWriter writer = new BufferedWriter(new FileWriter(nomeArquivo, true))){
+    private static void cabecalhoCSV (File arquivo){
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter(arquivo, true))){
             writer.write("metodo;tamanho;numeros\n");
         } catch (IOException e) {
-            System.out.println("Erro ao colocar o cabeçalho no arquivo " + nomeArquivo);
+            System.out.println("Erro ao colocar o cabeçalho no arquivo " + arquivo.getName());
             e.printStackTrace();
         }
     }

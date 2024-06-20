@@ -17,11 +17,11 @@ public class Main {
         * Escolher cenario de teste e metodo de ordenacao:
         */
         String cenarioDeTesteEscolhido = "VetoresOrdemAlatoriaComRepeticao";
-        AlgoritmoOrdenacao algoritmo = VetorService::ordenacaoInsertionSort;
+        AlgoritmoOrdenacao algoritmo = VetorService::ordenacaoSelectionSort;
 
         // Loop de aquecimento
         for (int i = 0; i < 1; i++) {
-            int[] vetorDeAquecimento = new int[]{5, 5, 4, 2, 1, 8};
+            int[] vetorDeAquecimento = new int[]{5, 5, 4, 2, 1, 8, 3, 0};
             if (i == 0) VetorService.imprimirVetor(vetorDeAquecimento);
             algoritmo.ordenar(vetorDeAquecimento);
             if (i == 0) VetorService.imprimirVetor(vetorDeAquecimento);

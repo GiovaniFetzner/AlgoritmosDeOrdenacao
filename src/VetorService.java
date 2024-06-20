@@ -86,4 +86,19 @@ public class VetorService {
             }
         }
     }
+    public static void ordenacaoSelectionSort(int[] vetorDesordenado){
+        for(int i = 0; i < vetorDesordenado.length; i++){
+            int minTerm = vetorDesordenado[i];
+            int indexMinTerm = i;
+            for (int j = i; j < vetorDesordenado.length; j++){
+                if(minTerm > vetorDesordenado[j]){
+                    indexMinTerm = j;
+                    minTerm = vetorDesordenado[j];
+                }
+
+            }
+            vetorDesordenado[indexMinTerm] = vetorDesordenado[i];
+            vetorDesordenado[i] = minTerm;
+        }
+    }
 }

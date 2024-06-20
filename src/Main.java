@@ -2,47 +2,52 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
+    static final String ANSI_RESET = "\u001B[0m";
+    static final String ANSI_GREEN = "\u001B[32m";
+    static final String ANSI_RED_BOLD = "\u001B[31;1m";
 
     public static void main(String[] args) {
 
-        //int[] tamanhos = {128, 256, 512, 1024, 2048, 4096, 65536};
-        int[] tamanhos = {128};
+        int[] tamanhos = {128, 256, 512, 1024, 2048, 4096, 65536};
 
         String[] cenariosDeTeste = {"VetorOrdenadoCrescente", "VetorOrdenadoDecrescente",
                 "VetorAleatorioSemRepeticao", "VetoresOrdemAlatoriaComRepeticao"};
 
-        AlgoritmoOrdenacao algoritmo = VetorService::ordenacaoBublleSort;
+        /*
+        * Escolher cenario de teste e metodo de ordenacao:
+        */
+        String cenarioDeTesteEscolhido = "VetoresOrdemAlatoriaComRepeticao";
+        AlgoritmoOrdenacao algoritmo = VetorService::ordenacaoInsertionSort;
 
         // Loop de aquecimento
         for (int i = 0; i < 100; i++) {
             int[] vetorDeAquecimento = new int[]{5, 5, 4, 2, 1, 8};
             if (i == 0) VetorService.imprimirVetor(vetorDeAquecimento);
-            VetorService.ordenacaoBublleSort(vetorDeAquecimento);
+            algoritmo.ordenar(vetorDeAquecimento);
             if (i == 0) VetorService.imprimirVetor(vetorDeAquecimento);
         }
 
-
+        System.out.println("Cenario de teste escolhido " + ANSI_GREEN+ cenarioDeTesteEscolhido + ANSI_RESET);
         for (int tamanho : tamanhos) {
             long[] registrosDeTempo = new long[10];
 
             for (int i = 0; i < registrosDeTempo.length; i++) {
                 int[] vetorDeTeste = ArquivoService.lerVetor(new File("Arrays.csv"),
-                        "VetoresOrdemAlatoriaComRepeticao", tamanho);
+                        cenarioDeTesteEscolhido, tamanho);
                 long startTime = System.nanoTime();
                 algoritmo.ordenar(vetorDeTeste);
                 long endTime = System.nanoTime();
                 registrosDeTempo[i] = (endTime - startTime);
-                System.out.println(registrosDeTempo[i]);
-                double tempoExecucaoSegundos = registrosDeTempo[i] / 1_000_000_000.0;
-
-               imprimeTempo(tempoExecucaoSegundos);
-
             }
 
             long mediaTempo = Arrays.stream(registrosDeTempo).reduce(0, Long::sum) / registrosDeTempo.length;
             double mediaTempoSegundos = mediaTempo / 1_000_000_000.0;
-            imprimeTempo(mediaTempoSegundos);
 
+            System.out.println("Vetor de tamanho, " + ANSI_GREEN + tamanho + ANSI_RESET +
+                    ", possui o seguinte tempo para executar 10 ordenacoes: " +
+                    ANSI_RED_BOLD + mediaTempoSegundos + ANSI_RESET + " segundos");
+
+            imprimeTempo(mediaTempoSegundos);
         }
     }
 

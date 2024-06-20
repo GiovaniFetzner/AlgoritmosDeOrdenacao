@@ -69,5 +69,7 @@ public class VetorService {
         }
     }
 
+    public static void ordenacaoInsertionSort(int[] vetorDesordenado){
 
+    }
 }

@@ -5,8 +5,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        criarCasosDeTeste();
-
+        lerCasosDeTeste("Arrays.csv");
 
     }
 
@@ -35,5 +34,14 @@ public class Main {
         }
     }
 
+    private static void lerCasosDeTeste(String nomeArquivo){
+        File arquivoCSV = new File(nomeArquivo);
+        if (!arquivoCSV.exists()){
+            System.out.println("Arquivo nao encontrado!! Favor conferir existencia do arquivo ");
+            return;
+        }
+
+
+    }
 
 }

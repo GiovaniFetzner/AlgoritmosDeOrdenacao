@@ -13,18 +13,6 @@ public class ArquivoService {
         }
         System.out.println("\nArquivo criado!");
     }
-
-    private static int[] dataFormat(String numeros) {
-        String[] numerosStringArray = numeros.split(",");
-
-        int[] vetor = new int[numerosStringArray.length];
-        for (int i = 0; i < numerosStringArray.length; i++) {
-            vetor[i] = Integer.parseInt(numerosStringArray[i]);
-        }
-
-        return vetor;
-    }
-
     public static void escreverCSV (File arquivo,String metodo, int[] numeros){
         try(BufferedWriter writer = new BufferedWriter(new FileWriter(arquivo, true))){
             writer.write(metodo + ";");
@@ -44,7 +32,6 @@ public class ArquivoService {
         }
 
     }
-
     private static void cabecalhoCSV (File arquivo){
         try(BufferedWriter writer = new BufferedWriter(new FileWriter(arquivo, true))){
             writer.write("metodo;tamanho;numeros\n");
@@ -54,24 +41,21 @@ public class ArquivoService {
         }
     }
 
-    private static int[] getVetor(File nomeArquivo){
-        try (BufferedReader reader = new BufferedReader(new FileReader(nomeArquivo))) {
+    private static int[] getVetor(File arquivo, String metodo, int tamanho){
+        try (BufferedReader reader = new BufferedReader(new FileReader(arquivo))) {
             String linha = reader.readLine();
-            String[] cabecalhos = linha.split(";");
 
             while((linha = reader.readLine()) != null){
                 String[] colunas = linha.split(";");
 
-                String metodo = colunas[0];
-                String tamanho = colunas[1];
-                String numeros = colunas[2];
+                String metodoCSV = colunas[0];
+                String tamanhoCSV = colunas[1];
+                String numerosCSV = colunas[2];
+                if (metodoCSV.equals(metodo) && Integer.parseInt(tamanhoCSV) == tamanho ) {
 
-                dataFormat(numeros);
+                    return dataFormat(numerosCSV);
+                }
             }
-
-            int[] vetor;
-
-            reader.close();
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
@@ -79,6 +63,16 @@ public class ArquivoService {
         }
 
         return null;
-
     }
+
+    private static int[] dataFormat(String numeros) {
+        String[] numerosString = numeros.split(",");
+
+        int[] vetor = new int[numerosString.length];
+        for (int i = 0; i < numerosString.length; i++) {
+            vetor[i] = Integer.parseInt(numerosString[i].trim());
+        }
+        return vetor;
+    }
+
 }

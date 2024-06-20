@@ -5,8 +5,12 @@ public class Main {
 
     public static void main(String[] args) {
 
-        lerCasosDeTeste("Arrays.csv");
+        int[] tamanhos = {128, 256, 512, 1024, 2048, 4096, 65536};
 
+        int[] vetor = ArquivoService.lerVetor(new File("Arrays.csv"),"VetoresOrdemAlatoriaComRepeticao",128);
+        vetor = new int[]{5, 5, 4, 2, 1, 8};
+        VetorService.ordenacaoBublleShort(vetor);
+        VetorService.imprimirVetor(vetor);
     }
 
     private static void criarCasosDeTeste() {
@@ -36,9 +40,20 @@ public class Main {
 
     private static void lerCasosDeTeste(String nomeArquivo){
         File arquivoCSV = new File(nomeArquivo);
+
         if (!arquivoCSV.exists()){
             System.out.println("Arquivo nao encontrado!! Favor conferir existencia do arquivo ");
             return;
+        }
+
+        int[] tamanhos = {128, 256, 512, 1024, 2048, 4096, 65536};
+        String[] metodos = {"VetorOrdenadoCrescente", "VetorOrdenadoDecrescente",
+                "VetorAleatorioSemRepeticao", "VetoresOrdemAlatoriaComRepeticao"};
+
+        for(int i = 0; i < tamanhos.length; i++){
+            for (int j = 0; j < metodos.length; j++) {
+                VetorService.imprimirVetor(ArquivoService.lerVetor(arquivoCSV, metodos[j], tamanhos[i]));
+            }
         }
 
 

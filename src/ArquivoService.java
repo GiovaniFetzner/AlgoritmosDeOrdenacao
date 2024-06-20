@@ -41,7 +41,7 @@ public class ArquivoService {
         }
     }
 
-    private static int[] getVetor(File arquivo, String metodo, int tamanho){
+    public static int[] lerVetor(File arquivo, String metodo, int tamanho){
         try (BufferedReader reader = new BufferedReader(new FileReader(arquivo))) {
             String linha = reader.readLine();
 
@@ -52,13 +52,11 @@ public class ArquivoService {
                 String tamanhoCSV = colunas[1];
                 String numerosCSV = colunas[2];
                 if (metodoCSV.equals(metodo) && Integer.parseInt(tamanhoCSV) == tamanho ) {
-
                     return dataFormat(numerosCSV);
                 }
             }
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
         } catch (IOException e) {
+            System.out.println("Erro na leitura do arquivo, fvor conferir parametros do metodo");
             throw new RuntimeException(e);
         }
 
@@ -74,5 +72,7 @@ public class ArquivoService {
         }
         return vetor;
     }
+
+
 
 }

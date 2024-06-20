@@ -56,4 +56,19 @@ public class VetorService {
         }
         System.out.println();
     }
+
+    public static int[] ordenacaoBublleShort(int[] vetorDesordenado){
+        for (int i = 0; i < vetorDesordenado.length; i++){
+            for (int j = 0; j < (vetorDesordenado.length - 1); j++){
+                if(vetorDesordenado[j] > vetorDesordenado[j +1]){
+                    int temp = vetorDesordenado[j + 1];
+                    vetorDesordenado[j + 1] = vetorDesordenado[j];
+                    vetorDesordenado[j] = temp;
+                }
+            }
+        }
+        return null;
+    }
+
+
 }

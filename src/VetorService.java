@@ -70,6 +70,20 @@ public class VetorService {
     }
 
     public static void ordenacaoInsertionSort(int[] vetorDesordenado){
+        for(int i = 0; i < (vetorDesordenado.length - 1); i++){
+            if(vetorDesordenado[i] > vetorDesordenado[i + 1]){
+                int temp = vetorDesordenado[i];
+                vetorDesordenado[i] = vetorDesordenado[i + 1];
+                vetorDesordenado[i + 1] = temp;
 
+                for (int j = i; j > 0 ; j--){
+                    if(vetorDesordenado[j] < vetorDesordenado[j - 1]){
+                        int temp2 = vetorDesordenado[j];
+                        vetorDesordenado[j] = vetorDesordenado[j - 1];
+                        vetorDesordenado[j - 1] = temp2;
+                    }
+                }
+            }
+        }
     }
 }

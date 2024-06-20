@@ -20,7 +20,7 @@ public class Main {
         AlgoritmoOrdenacao algoritmo = VetorService::ordenacaoInsertionSort;
 
         // Loop de aquecimento
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 1; i++) {
             int[] vetorDeAquecimento = new int[]{5, 5, 4, 2, 1, 8};
             if (i == 0) VetorService.imprimirVetor(vetorDeAquecimento);
             algoritmo.ordenar(vetorDeAquecimento);
@@ -49,6 +49,8 @@ public class Main {
 
             imprimeTempo(mediaTempoSegundos);
         }
+
+
     }
 
     private static void criarCasosDeTeste() {

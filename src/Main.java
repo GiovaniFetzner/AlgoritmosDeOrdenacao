@@ -7,10 +7,31 @@ public class Main {
 
         int[] tamanhos = {128, 256, 512, 1024, 2048, 4096, 65536};
 
-        int[] vetor = ArquivoService.lerVetor(new File("Arrays.csv"),"VetoresOrdemAlatoriaComRepeticao",128);
-        vetor = new int[]{5, 5, 4, 2, 1, 8};
-        VetorService.ordenacaoBublleShort(vetor);
-        VetorService.imprimirVetor(vetor);
+        //int[] vetorDeTeste = ArquivoService.lerVetor(new File("Arrays.csv"),"VetoresOrdemAlatoriaComRepeticao",128);
+
+        long[] registros = new long[10];
+
+        // Loop de aquecimento
+        for (int i = 0; i < 10; i++) {
+            int[] vetorDeAquecimento = new int[]{5, 5, 4, 2, 1, 8};
+            if (i == 0) VetorService.imprimirVetor(vetorDeAquecimento);
+            VetorService.ordenacaoBublleSort(vetorDeAquecimento);
+            if (i == 0) VetorService.imprimirVetor(vetorDeAquecimento);
+        }
+
+        for (int i = 0; i < registros.length; i++) {
+            int[] vetorDeTeste = ArquivoService.lerVetor
+                    (new File("Arrays.csv"),"VetoresOrdemAlatoriaComRepeticao",128);
+            long startTime = System.nanoTime();
+            VetorService.ordenacaoBublleSort(vetorDeTeste);
+            long endTime = System.nanoTime();
+            registros[i] = (endTime - startTime);
+        }
+        for (long duracao: registros) {
+            System.out.print(duracao + " ");
+        }
+        System.out.println("\nMedia de tempo para a execucao 128: " +
+                (Arrays.stream(registros).reduce(0,Long::sum)/registros.length) + " nanosegundos");
     }
 
     private static void criarCasosDeTeste() {
@@ -55,8 +76,6 @@ public class Main {
                 VetorService.imprimirVetor(ArquivoService.lerVetor(arquivoCSV, metodos[j], tamanhos[i]));
             }
         }
-
-
     }
 
 }

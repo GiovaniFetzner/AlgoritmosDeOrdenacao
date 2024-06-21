@@ -22,7 +22,7 @@ public class Main {
         * Escolher cenario de teste e metodo de ordenacao:
         */
         String cenarioDeTesteEscolhido = "VetoresOrdemAlatoriaComRepeticao";
-        AlgoritmoOrdenacao algoritmo = VetorService::ordenacaoBubbleSort;
+        AlgoritmoOrdenacao algoritmo = VetorService::ordenacaoSelectionSort;
 
         // Loop de aquecimento
         for (int i = 0; i < 1; i++) {

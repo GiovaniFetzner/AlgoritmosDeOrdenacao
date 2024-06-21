@@ -1,3 +1,8 @@
+package main;
+
+import services.ArquivoService;
+import services.VetorService;
+
 import java.io.*;
 import java.util.*;
 
@@ -17,7 +22,7 @@ public class Main {
         * Escolher cenario de teste e metodo de ordenacao:
         */
         String cenarioDeTesteEscolhido = "VetoresOrdemAlatoriaComRepeticao";
-        AlgoritmoOrdenacao algoritmo = VetorService::ordenacaoSelectionSort;
+        AlgoritmoOrdenacao algoritmo = VetorService::ordenacaoBubbleSort;
 
         // Loop de aquecimento
         for (int i = 0; i < 1; i++) {

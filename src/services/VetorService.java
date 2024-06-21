@@ -1,3 +1,5 @@
+package services;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -57,7 +59,7 @@ public class VetorService {
         System.out.println();
     }
 
-    public static void ordenacaoBublleSort(int[] vetorDesordenado){
+    public static void ordenacaoBubbleSort(int[] vetorDesordenado){
         for (int i = 0; i < vetorDesordenado.length; i++){
             for (int j = 0; j < (vetorDesordenado.length - 1); j++){
                 if(vetorDesordenado[j] > vetorDesordenado[j +1]){

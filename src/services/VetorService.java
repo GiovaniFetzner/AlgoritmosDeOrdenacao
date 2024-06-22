@@ -103,4 +103,54 @@ public class VetorService {
             vetorDesordenado[i] = minTerm;
         }
     }
+
+    public static void ordenacaoHeapShort (int[] vetorDesordenado){
+        int n = vetorDesordenado.length;
+        for (int i = n / 2 - 1;i >=0; i--){
+            heapify(vetorDesordenado,n,i);
+        }
+        for(int i = n -1; i > 0; i--){
+            int temp = vetorDesordenado[0];
+            vetorDesordenado[0] = vetorDesordenado[i];
+            vetorDesordenado[i] = temp;
+
+            heapify(vetorDesordenado, i, 0);
+        }
+    }
+
+    static void heapify(int [] vetor, int n, int i){
+        int maior = i;
+        int esquerda = 2 * i + 1;
+        int direita = 2 * i + 2;
+
+        if (esquerda < n && vetor[esquerda] > vetor[maior]) {
+            maior = esquerda;
+        }
+        if (direita < n && vetor[direita] > vetor[maior]) {
+            maior = direita;
+        }
+        if (maior != i){
+            int swap = vetor[i];
+            vetor[i] = vetor[maior];
+            vetor[maior] = swap;
+
+            heapify(vetor,n,maior);
+        }
+    }
+
+    public static void ordenacaoShellSort(int[] vetorDesordenado){
+        int n = vetorDesordenado.length;
+
+        for (int gap = n / 2; gap > 0; gap /= 2){
+            for(int i = gap; i < n; i++){
+                int temp = vetorDesordenado[i];
+                int j;
+                for(j = i; j >= gap && vetorDesordenado[j - gap] > temp; j -= gap){
+                    vetorDesordenado[j] = vetorDesordenado[j - gap];
+                }
+                vetorDesordenado[j] = temp;
+            }
+        }
+    }
+
 }

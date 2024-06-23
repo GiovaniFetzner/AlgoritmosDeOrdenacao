@@ -140,7 +140,6 @@ public class VetorService {
 
     public static void ordenacaoShellSort(int[] vetorDesordenado){
         int n = vetorDesordenado.length;
-
         for (int gap = n / 2; gap > 0; gap /= 2){
             for(int i = gap; i < n; i++){
                 int temp = vetorDesordenado[i];
@@ -153,4 +152,60 @@ public class VetorService {
         }
     }
 
+    //Inicio da ordenacão do Mega Sort
+    private static final int INSERTION_SORT_THRESHOLD = 10;
+    public static void ordenacaoMegaSort(int[] vetorDesordenado){
+        megaSort(vetorDesordenado,0,vetorDesordenado.length - 1);
+    }
+    private static void megaSort(int [] vetor, int low, int high){
+        if (low < high){
+            if(high - low + 1 <= INSERTION_SORT_THRESHOLD){
+                insertionSort (vetor,low,high);
+            }
+            else{
+                int pi = partition(vetor,low,high);
+                megaSort(vetor,low,pi-1);
+                megaSort(vetor,pi+1,high);
+            }
+        }
+    }
+    private static int partition(int[] vetor, int low, int high) {
+        int pivot = vetor[high];
+        int i = (low - 1);
+        for (int j = low; j < high; j++) {
+            if (vetor[j] <= pivot) {
+                i++;
+                int temp = vetor[i];
+                vetor[i] = vetor[j];
+                vetor[j] = temp;
+            }
+        }
+        int temp = vetor[i + 1];
+        vetor[i + 1] = vetor[high];
+        vetor[high] = temp;
+        return i + 1;
+    }
+    private static void insertionSort(int[] vetor, int left, int right) {
+        for (int i = left + 1; i <= right; i++) {
+            int key = vetor[i];
+            int j = i - 1;
+            while (j >= left && vetor[j] > key) {
+                vetor[j + 1] = vetor[j];
+                j = j - 1;
+            }
+            vetor[j + 1] = key;
+        }
+    }
+
+    //Inicio da ordenacão do Quick Sort
+    public static void ordenacaoQuickSort(int[] vetorDesconhecido){
+        quickSort(vetorDesconhecido, 0,vetorDesconhecido.length - 1);
+    }
+    private static void quickSort(int[] vetor, int low, int high){
+        if (low < high){
+            int pi = partition(vetor, low, high);
+            quickSort(vetor,low,pi - 1);
+            quickSort(vetor,pi + 1,high);
+        }
+    }
 }

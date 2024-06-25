@@ -55,6 +55,8 @@ public class Main {
 
 
             imprimeTempo(calculoMediaEmSegundos(registrosDeTempo));
+            System.out.println("Variancia: " + calculoVariancia(registrosDeTempo,
+                    calculoMediaEmNanosegundos(registrosDeTempo)));
         }
 
 
@@ -63,6 +65,17 @@ public class Main {
     private static double calculoMediaEmSegundos(long[] registrosDeTempo){
         long mediaTempo = Arrays.stream(registrosDeTempo).reduce(0, Long::sum) / registrosDeTempo.length;
         return mediaTempo/ 1_000_000_000.0;
+    }
+        private static long calculoMediaEmNanosegundos(long[] registrosDeTempo){
+        return Arrays.stream(registrosDeTempo).reduce(0, Long::sum) / registrosDeTempo.length;
+    }
+    private static double calculoVariancia(long[] registrosDeTempo, double media){
+        double sum = 0;
+        for (long tempoRegistrado:registrosDeTempo) {
+            sum += Math.pow((tempoRegistrado - media),2);
+        };
+        sum = (sum/9);
+        return sum;
     }
 
     private static void criarCasosDeTeste() {

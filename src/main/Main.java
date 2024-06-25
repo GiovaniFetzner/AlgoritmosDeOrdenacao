@@ -52,10 +52,17 @@ public class Main {
                     ", possui o seguinte tempo para executar 10 ordenacoes: " +
                     ANSI_RED_BOLD + mediaTempoSegundos + ANSI_RESET + " segundos");
 
-            imprimeTempo(mediaTempoSegundos);
+
+
+            imprimeTempo(calculoMediaEmSegundos(registrosDeTempo));
         }
 
 
+    }
+
+    private static double calculoMediaEmSegundos(long[] registrosDeTempo){
+        long mediaTempo = Arrays.stream(registrosDeTempo).reduce(0, Long::sum) / registrosDeTempo.length;
+        return mediaTempo/ 1_000_000_000.0;
     }
 
     private static void criarCasosDeTeste() {

@@ -21,8 +21,8 @@ public class Main {
         /*
         * Escolher cenario de teste e metodo de ordenacao:
         */
-        String cenarioDeTesteEscolhido = "VetoresOrdemAlatoriaComRepeticao";
-        AlgoritmoOrdenacao algoritmo = VetorService::ordenacaoMergeSort;
+        String cenarioDeTesteEscolhido = "VetorOrdenadoCrescente";
+        AlgoritmoOrdenacao algoritmo = VetorService::ordenacaoBubbleSort;
 
         System.out.println("Cenario de teste escolhido " + ANSI_GREEN+ cenarioDeTesteEscolhido + ANSI_RESET);
         for (int tamanho : tamanhos) {
@@ -45,17 +45,25 @@ public class Main {
                     ANSI_RED_BOLD + mediaTempoSegundos + ANSI_RESET + " segundos");
 
 
+            System.out.println("Tempo medio de execução: " + formatTempo(calculoMediaEmSegundos(registrosDeTempo)));
 
-            imprimeTempo(calculoMediaEmSegundos(registrosDeTempo));
             double variancia = calculoVariancia(registrosDeTempo, calculoMediaEmNanosegundos(registrosDeTempo));
+
             System.out.println("Variancia: " + variancia);
             System.out.println("Desvio padrao: " + calculoDesvioPadrao(variancia));
+
             ArrayList<Long> intervalo = calculaIntervalo(registrosDeTempo,
                     calculoMediaEmNanosegundos(registrosDeTempo), calculoDesvioPadrao(variancia));
+
             System.out.println("Valores dentro do intervalo: " + intervalo);
-            System.out.println("Media somente dos valores dentro do intervalo: " +
-                    (intervalo.stream().mapToLong(Long::longValue).sum())/intervalo.size());
+
+            long mediaIntervalo = intervalo.stream().mapToLong(Long::longValue).sum()/ intervalo.size();
+            double mediaIntervaloSegundos = mediaIntervalo / 1_000_000_000.0;
+
+            System.out.println("Media somente dos valores dentro do intervalo: " + ANSI_RED_BOLD +
+                    formatTempo(mediaIntervaloSegundos) + ANSI_RESET);
             System.out.println();
+
         }
 
 
@@ -141,15 +149,15 @@ public class Main {
         }
     }
 
-    private static void imprimeTempo(double tempoExecucaoSegundos) {
+    private static String formatTempo(double tempoExecucaoSegundos) {
         if (tempoExecucaoSegundos >= 1) {
-            System.out.printf("Tempo de execução: %.2f segundos.%n", tempoExecucaoSegundos);
+            return String.format("%.2f segundos.", tempoExecucaoSegundos);
         } else if (tempoExecucaoSegundos >= 0.001) {
-            System.out.printf("Tempo de execução: %.2f milissegundos.%n", (tempoExecucaoSegundos * 1_000));
+            return String.format("%.2f milissegundos.", (tempoExecucaoSegundos * 1_000));
         } else if (tempoExecucaoSegundos >= 0.000001) {
-            System.out.printf("Tempo de execução: %.2f microssegundos.%n", (tempoExecucaoSegundos * 1_000_000));
+            return String.format("%.2f microssegundos.", (tempoExecucaoSegundos * 1_000_000));
         } else {
-            System.out.printf("Tempo de execução: %.2f nanossegundos.%n", (tempoExecucaoSegundos * 1_000_000_000));
+            return String.format("%.2f nanossegundos.", (tempoExecucaoSegundos * 1_000_000_000));
         }
     }
 

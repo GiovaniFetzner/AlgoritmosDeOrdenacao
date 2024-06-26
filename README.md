@@ -14,7 +14,12 @@ Para cada teste, deve-se utilizar o mesmo vetor e medir o tempo de execução em
 
 Foi adotado o método de armazenamento em arquivo para facilitar a manipulação dos vetores. Para criá-los, foram utilizadas as classes ArquivoService e VetorService. Após a criação e organização dos vetores, os dados foram armazenados em um arquivo no formato CSV.
 
-Para realizar os testes, é necessário acessar o arquivo, ler o vetor e selecionar o tipo de ordenação que será utilizado. Após essas escolhas, o vetor selecionado será ordenado e será impresso o tempo médio de execução das dez execuções de ordenação.
+Para realizar os testes, é necessário acessar o arquivo, ler o vetor e selecionar o tipo de ordenação que será utilizado. Após essas escolhas, o vetor selecionado será ordenado e será impresso os detalhes sobre sua execução.
+
+> **Observação:**
+>
+> Note que o tempo médio registrado nas tabelas abaixo refere-se ao tempo médio que está dentro do intervalo permitido pelo descritivo do trabalho. Ou seja, de acordo com o tempo das dez execuções para cada cenário, é obtido o tempo médio, e posteriormente, a variância e o desvio padrão. Para encontrar o intervalo de tempo válido para as execuções, foi utilizado um desvio padrão de tolerância.
+
 
 #### Tabela 1. Tempos computados para Vetor ordenado em ordem crescente e sem valores repetidos 
 

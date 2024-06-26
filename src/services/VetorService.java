@@ -152,20 +152,20 @@ public class VetorService {
         }
     }
 
-    //Inicio da ordenacão do Mega Sort
+    //Inicio da ordenacão do MergeSort
     private static final int INSERTION_SORT_THRESHOLD = 10;
-    public static void ordenacaoMegaSort(int[] vetorDesordenado){
-        megaSort(vetorDesordenado,0,vetorDesordenado.length - 1);
+    public static void ordenacaoMergeSort(int[] vetorDesordenado){
+        mergeSort(vetorDesordenado,0,vetorDesordenado.length - 1);
     }
-    private static void megaSort(int [] vetor, int low, int high){
+    private static void mergeSort(int [] vetor, int low, int high){
         if (low < high){
             if(high - low + 1 <= INSERTION_SORT_THRESHOLD){
                 insertionSort (vetor,low,high);
             }
             else{
                 int pi = partition(vetor,low,high);
-                megaSort(vetor,low,pi-1);
-                megaSort(vetor,pi+1,high);
+                mergeSort(vetor,low,pi-1);
+                mergeSort(vetor,pi+1,high);
             }
         }
     }

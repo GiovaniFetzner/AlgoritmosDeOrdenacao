@@ -55,8 +55,9 @@ public class Main {
 
 
             imprimeTempo(calculoMediaEmSegundos(registrosDeTempo));
-            System.out.println("Variancia: " + calculoVariancia(registrosDeTempo,
-                    calculoMediaEmNanosegundos(registrosDeTempo)));
+            double variancia = calculoVariancia(registrosDeTempo, calculoMediaEmNanosegundos(registrosDeTempo));
+            System.out.println("Variancia: " + variancia);
+            System.out.println("Desvio padrao: " + calculoDesvioPadrao(variancia));
         }
 
 
@@ -69,13 +70,17 @@ public class Main {
         private static long calculoMediaEmNanosegundos(long[] registrosDeTempo){
         return Arrays.stream(registrosDeTempo).reduce(0, Long::sum) / registrosDeTempo.length;
     }
-    private static double calculoVariancia(long[] registrosDeTempo, double media){
+    private static double calculoVariancia(long[] registrosDeTempo, double mediaEmNanossegundos){
         double sum = 0;
         for (long tempoRegistrado:registrosDeTempo) {
-            sum += Math.pow((tempoRegistrado - media),2);
+            sum += Math.pow((tempoRegistrado - mediaEmNanossegundos),2);
         };
         sum = (sum/9);
         return sum;
+    }
+
+    private static double calculoDesvioPadrao(double variancia){
+        return Math.sqrt(variancia);
     }
 
     private static void criarCasosDeTeste() {

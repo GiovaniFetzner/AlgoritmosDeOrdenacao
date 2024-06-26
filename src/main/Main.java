@@ -24,14 +24,6 @@ public class Main {
         String cenarioDeTesteEscolhido = "VetoresOrdemAlatoriaComRepeticao";
         AlgoritmoOrdenacao algoritmo = VetorService::ordenacaoMegaSort;
 
-        // Loop de aquecimento
-        for (int i = 0; i < 1; i++) {
-            int[] vetorDeAquecimento = new int[]{5, 5, 4, 2, 1, 8, 3, 0};
-            if (i == 0) VetorService.imprimirVetor(vetorDeAquecimento);
-            algoritmo.ordenar(vetorDeAquecimento);
-            if (i == 0) VetorService.imprimirVetor(vetorDeAquecimento);
-        }
-
         System.out.println("Cenario de teste escolhido " + ANSI_GREEN+ cenarioDeTesteEscolhido + ANSI_RESET);
         for (int tamanho : tamanhos) {
             long[] registrosDeTempo = new long[10];
@@ -58,6 +50,12 @@ public class Main {
             double variancia = calculoVariancia(registrosDeTempo, calculoMediaEmNanosegundos(registrosDeTempo));
             System.out.println("Variancia: " + variancia);
             System.out.println("Desvio padrao: " + calculoDesvioPadrao(variancia));
+            ArrayList<Long> intervalo = calculaIntervalo(registrosDeTempo,
+                    calculoMediaEmNanosegundos(registrosDeTempo), calculoDesvioPadrao(variancia));
+            System.out.println("Valores dentro do intervalo: " + intervalo);
+            System.out.println("Media somente dos valores dentro do intervalo: " +
+                    (intervalo.stream().mapToLong(Long::longValue).sum())/intervalo.size());
+            System.out.println();
         }
 
 
@@ -67,9 +65,11 @@ public class Main {
         long mediaTempo = Arrays.stream(registrosDeTempo).reduce(0, Long::sum) / registrosDeTempo.length;
         return mediaTempo/ 1_000_000_000.0;
     }
-        private static long calculoMediaEmNanosegundos(long[] registrosDeTempo){
+
+    private static long calculoMediaEmNanosegundos(long[] registrosDeTempo){
         return Arrays.stream(registrosDeTempo).reduce(0, Long::sum) / registrosDeTempo.length;
     }
+
     private static double calculoVariancia(long[] registrosDeTempo, double mediaEmNanossegundos){
         double sum = 0;
         for (long tempoRegistrado:registrosDeTempo) {
@@ -81,6 +81,20 @@ public class Main {
 
     private static double calculoDesvioPadrao(double variancia){
         return Math.sqrt(variancia);
+    }
+
+    private static ArrayList<Long> calculaIntervalo(long[] registrosDeTempo,long mediaEmNano, double desvioPadrao){
+        ArrayList<Long> intervalo = new ArrayList<>();
+        long inicioIntervalo = (long) (mediaEmNano - desvioPadrao);
+        long finalDoIntervalo = (long) (mediaEmNano + desvioPadrao);
+
+        for (long tempoRegistrado:registrosDeTempo) {
+            if (tempoRegistrado > inicioIntervalo && tempoRegistrado < finalDoIntervalo){
+                intervalo.add(tempoRegistrado);
+            }
+        }
+
+        return intervalo;
     }
 
     private static void criarCasosDeTeste() {

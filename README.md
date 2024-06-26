@@ -25,49 +25,10 @@ Para realizar os testes, é necessário acessar o arquivo, ler o vetor e selecio
 
 | Tamanho do Array (n) | Bubble Sort  | Insertion Sort | Selection Sort | Heap Sort   | Shell Sort  | Merge Sort  | Quick Sort  |
 |----------------------|--------------|----------------|----------------|-------------|-------------|-------------|-------------|
-| 128                  |  249,06 µs   |     4,38 µs    |    153,38 µs   |             |             |             |             |
-| 256                  |  253,08 µs   |     5,30 µs    |    202,52 µs   |             |             |             |             |
-| 512                  |  100,19 µs   |    13,13 µs    |    245,58 µs   |             |             |             |             |
-| 1024                 |  445,15 µs   |    27,96 µs    |    179,41 µs   |             |             |             |             |
-| 2048                 |    1,70 ms   |    52,32 µs    |    538,59 µs   |             |             |             |             |
-| 4096                 |    5,29 ms   |    62,04 µs    |      2,46 ms   |             |             |             |             |
-| 65536                |    1,25 s    |    69,74 µs    |    569,50 ms   |             |             |             |             |
-
-
-#### Tabela 2. Tempos computados para Vetor ordenado em ordem decrescente e sem valores repetidos
-
-| Tamanho do Array (n) | Bubble Sort  | Insertion Sort | Selection Sort | Heap Sort   | Shell Sort  | Merge Sort  | Quick Sort  |
-|----------------------|--------------|----------------|----------------|-------------|-------------|-------------|-------------|
-| 128                  |  222,65 µs   |   276,28 µs    |    113,12 µs   |             |             |             |             |
-| 256                  |  206,00 µs   |   168,91 µs    |    120,91 µs   |             |             |             |             |
-| 512                  |  301,23 µs   |   189,86 µs    |    241,17 µs   |             |             |             |             |
-| 1024                 |    1,15 ms   |   431,91 µs    |    542,57 µs   |             |             |             |             |
-| 2048                 |    4,30 ms   |     1,63 ms    |      1,82 ms   |             |             |             |             |
-| 4096                 |   19,09 ms   |     6,30 ms    |      6,73 ms   |             |             |             |             |
-| 65536                |     6,03 s   |      2,16 s    |      2,26  s   |             |             |             |             |
-
-#### Tabela 3. Tempos computados para Vetor aleatório sem valores repetidos
-
-| Tamanho do Array (n) | Bubble Sort  | Insertion Sort | Selection Sort | Heap Sort   | Shell Sort  | Merge Sort  | Quick Sort  |
-|----------------------|--------------|----------------|----------------|-------------|-------------|-------------|-------------|
-| 128                  |  234,77 µs   |   172,73 µs    |    153,05 µs   |             |             |             |             |
-| 256                  |  279,11 µs   |   154,72 µs    |    127,59 µs   |             |             |             |             |
-| 512                  |  376,47 µs   |   218,28 µs    |    210,30 µs   |             |             |             |             |
-| 1024                 |    1,27 ms   |   684,83 µs    |    304,94 µs   |             |             |             |             |
-| 2048                 |    3,80 ms   |     2,09 ms    |    837,39 µs   |             |             |             |             |
-| 4096                 |   15,50 ms   |     8,64 ms    |      2,86 ms   |             |             |             |             |
-| 65536                |    10,10 s   |      3,09 s    |   758,50  ms   |             |             |             |             |
-
-#### Tabela 4. Tempos computados para Vetor aleatório com valores repetidos
-
-| Tamanho do Array (n) | Bubble Sort  | Insertion Sort | Selection Sort | Heap Sort   | Shell Sort  | Merge Sort  | Quick Sort  |
-|----------------------|--------------|----------------|----------------|-------------|-------------|-------------|-------------|
-| 128                  |  237,67 µs   |   175,82 µs    |    107,21 µs   |             |             |             |             |
-| 256                  |  202,91 µs   |   113,58 µs    |    126,73 µs   |             |             |             |             |
-| 512                  |  423,15 µs   |   248,88 µs    |    565,11 µs   |             |             |             |             |
-| 1024                 |    1,21 ms   |   674,57 µs    |    257,71 µs   |             |             |             |             |
-| 2048                 |    4,55 ms   |     2,21 ms    |    903,51 µs   |             |             |             |             |
-| 4096                 |   20,21 ms   |     9,58 ms    |      2,92 ms   |             |             |             |             |
-| 65536                |    11,33 s   |     3,03 s     |    737,32 ms   |             |             |             |             |
-
-Note que para cada registro na tabela foi realizado **somente** o tempo de execução, sem considerar desvio padrão nem variância
+| 128                  |   89,63 µs   |     4,42 µs    |    152,81 µs   |   20,64 µs  |   30,96 µs  |             |             |
+| 256                  |   94,36 µs   |     4,90 µs    |    151,80 µs   |   24,41 µs  |   69,40 µs  |             |             |
+| 512                  |   96,54 µs   |    14,43 µs    |     59,66 µs   |   71,50 µs  |  150,67 µs  |             |             |
+| 1024                 |  356,76 µs   |    25,80 µs    |    177,22 µs   |  139,00 µs  |   52,68 µs  |             |             |
+| 2048                 |    1,29 ms   |    50,16 µs    |    695,41 µs   |  293,41 µs  |   67,78 µs  |             |             |
+| 4096                 |    3,14 ms   |    93,48 µs    |      2,22 ms   |  389,30 µs  |   27,28 µs  |             |             |
+| 65536                |  981,43 ms   |    30,69 µs    |    477,77 ms   |    5,48 ms  |  419,78 µs  |             |             |

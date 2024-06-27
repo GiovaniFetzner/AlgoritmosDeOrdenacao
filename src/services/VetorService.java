@@ -152,39 +152,62 @@ public class VetorService {
         }
     }
 
-    //Inicio da ordenacão do MergeSort
+    // Inicio da ordenacão do MergeSort
     private static final int INSERTION_SORT_THRESHOLD = 10;
-    public static void ordenacaoMergeSort(int[] vetorDesordenado){
-        mergeSort(vetorDesordenado,0,vetorDesordenado.length - 1);
+
+    public static void ordenacaoMergeSort(int[] vetorDesordenado) {
+        mergeSort(vetorDesordenado, 0, vetorDesordenado.length - 1);
     }
-    private static void mergeSort(int [] vetor, int low, int high){
-        if (low < high){
-            if(high - low + 1 <= INSERTION_SORT_THRESHOLD){
-                insertionSort (vetor,low,high);
-            }
-            else{
-                int pi = partition(vetor,low,high);
-                mergeSort(vetor,low,pi-1);
-                mergeSort(vetor,pi+1,high);
+
+    private static void mergeSort(int[] vetor, int low, int high) {
+        if (low < high) {
+            if (high - low + 1 <= INSERTION_SORT_THRESHOLD) {
+                insertionSort(vetor, low, high);
+            } else {
+                int mid = (low + high) / 2;
+                mergeSort(vetor, low, mid);
+                mergeSort(vetor, mid + 1, high);
+                merge(vetor, low, mid, high);
             }
         }
     }
-    private static int partition(int[] vetor, int low, int high) {
-        int pivot = vetor[high];
-        int i = (low - 1);
-        for (int j = low; j < high; j++) {
-            if (vetor[j] <= pivot) {
+
+    private static void merge(int[] vetor, int low, int mid, int high) {
+        int n1 = mid - low + 1;
+        int n2 = high - mid;
+
+        int[] left = new int[n1];
+        int[] right = new int[n2];
+
+        System.arraycopy(vetor, low, left, 0, n1);
+        System.arraycopy(vetor, mid + 1, right, 0, n2);
+
+        int i = 0, j = 0, k = low;
+
+        while (i < n1 && j < n2) {
+            if (left[i] <= right[j]) {
+                vetor[k] = left[i];
                 i++;
-                int temp = vetor[i];
-                vetor[i] = vetor[j];
-                vetor[j] = temp;
+            } else {
+                vetor[k] = right[j];
+                j++;
             }
+            k++;
         }
-        int temp = vetor[i + 1];
-        vetor[i + 1] = vetor[high];
-        vetor[high] = temp;
-        return i + 1;
+
+        while (i < n1) {
+            vetor[k] = left[i];
+            i++;
+            k++;
+        }
+
+        while (j < n2) {
+            vetor[k] = right[j];
+            j++;
+            k++;
+        }
     }
+
     private static void insertionSort(int[] vetor, int left, int right) {
         for (int i = left + 1; i <= right; i++) {
             int key = vetor[i];
@@ -193,19 +216,51 @@ public class VetorService {
                 vetor[j + 1] = vetor[j];
                 j = j - 1;
             }
-            vetor[j + 1] = key;
         }
     }
 
-    //Inicio da ordenacão do Quick Sort
-    public static void ordenacaoQuickSort(int[] vetorDesconhecido){
-        quickSort(vetorDesconhecido, 0,vetorDesconhecido.length - 1);
+    // Início da ordenação do QuickSort
+    private static final Random RANDOM = new Random();
+    public static void ordenacaoQuickSort(int[] vetorDesconhecido) {
+        quickSort(vetorDesconhecido, 0, vetorDesconhecido.length - 1);
     }
-    private static void quickSort(int[] vetor, int low, int high){
-        if (low < high){
-            int pi = partition(vetor, low, high);
-            quickSort(vetor,low,pi - 1);
-            quickSort(vetor,pi + 1,high);
+    private static void quickSort(int[] vetor, int low, int high) {
+        while (low < high) {
+            if (high - low <= INSERTION_SORT_THRESHOLD) {
+                insertionSort(vetor, low, high);
+                break;
+            } else {
+                int pi = randomizedPartition(vetor, low, high);
+                if (pi - low < high - pi) {
+                    quickSort(vetor, low, pi - 1);
+                    low = pi + 1;
+                } else {
+                    quickSort(vetor, pi + 1, high);
+                    high = pi - 1;
+                }
+            }
         }
+    }
+    private static int randomizedPartition(int[] vetor, int low, int high) {
+        int pivotIndex = low + RANDOM.nextInt(high - low + 1);
+        swap(vetor, pivotIndex, high);
+        return partition(vetor, low, high);
+    }
+    private static int partition(int[] vetor, int low, int high) {
+        int pivot = vetor[high];
+        int i = low - 1;
+        for (int j = low; j < high; j++) {
+            if (vetor[j] <= pivot) {
+                i++;
+                swap(vetor, i, j);
+            }
+        }
+        swap(vetor, i + 1, high);
+        return i + 1;
+    }
+    private static void swap(int[] vetor, int i, int j) {
+        int temp = vetor[i];
+        vetor[i] = vetor[j];
+        vetor[j] = temp;
     }
 }

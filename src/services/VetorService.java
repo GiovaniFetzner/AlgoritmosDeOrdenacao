@@ -104,7 +104,7 @@ public class VetorService {
         }
     }
 
-    public static void ordenacaoHeapShort (int[] vetorDesordenado){
+    public static void ordenacaoHeapSort(int[] vetorDesordenado){
         int n = vetorDesordenado.length;
         for (int i = n / 2 - 1;i >=0; i--){
             heapify(vetorDesordenado,n,i);

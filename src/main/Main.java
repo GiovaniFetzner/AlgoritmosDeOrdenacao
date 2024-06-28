@@ -22,7 +22,7 @@ public class Main {
         * Escolher cenario de teste e metodo de ordenacao:
         */
         String cenarioDeTesteEscolhido = "VetoresOrdemAlatoriaComRepeticao";
-        AlgoritmoOrdenacao algoritmo = VetorService::ordenacaoMergeSort;
+        AlgoritmoOrdenacao algoritmo = VetorService::ordenacaoBubbleSort;
 
         System.out.println("Cenario de teste escolhido " + ANSI_GREEN+ cenarioDeTesteEscolhido + ANSI_RESET);
         for (int tamanho : tamanhos) {
